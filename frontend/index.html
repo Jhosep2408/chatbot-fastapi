@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot IA - Portafolio 2025</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-top">
+                <h1><i class="fas fa-robot"></i> Chatbot con IA</h1>
+                <div class="connection-status">
+                    <span class="connection-dot" id="connectionDot"></span>
+                    <span id="connectionStatus">Conectando...</span>
+                </div>
+            </div>
+            <p class="subtitle">Proyecto de Portafolio para Desarrollador Junior 2025</p>
+            <div class="header-info">
+                <div class="model-info">
+                    <span id="modelStatus">Modelo: Conectando...</span>
+                </div>
+                <div class="session-info">
+                    <span id="sessionTimer">Sesión: 00:00</span>
+                    <span id="messageCounter">Mensajes: 0</span>
+                </div>
+            </div>
+        </header>
+        
+        
+        <div class="main-area">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-list"></i> Conversaciones</h3>
+                    <button id="newConversation" class="secondary-btn" title="Nueva conversación">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div id="conversationList" class="conversation-list">
+                    <!-- Lista de conversaciones -->
+                </div>
+                <div class="sidebar-footer">
+                    <small>Haz clic en "Nueva" para crear una conversación.</small>
+                </div>
+            </aside>
+
+            <main class="chat-container">
+            <div class="chat-header">
+                <h3><i class="fas fa-comments"></i> Conversación</h3>
+                <div class="chat-actions">
+                    <button id="themeToggle" class="icon-btn" title="Cambiar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="exportChat" class="icon-btn" title="Exportar conversación">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-box" id="chatBox">
+                <!-- Mensajes aparecerán aquí -->
+                <div class="message bot-message welcome-message">
+                    <div class="avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="content">
+                        <p>¡Hola! Soy un chatbot de IA creado como proyecto de portafolio. Puedo ayudarte con:</p>
+                        <ul class="welcome-list">
+                            <li><i class="fas fa-code"></i> Preguntas sobre programación</li>
+                            <li><i class="fas fa-lightbulb"></i> Explicaciones técnicas</li>
+                            <li><i class="fas fa-project-diagram"></i> Arquitectura de software</li>
+                            <li><i class="fas fa-graduation-cap"></i> Consejos para portafolios</li>
+                        </ul>
+                        <p>¡Pregúntame lo que quieras! Recuerda que mantengo el contexto de nuestra conversación.</p>
+                        <span class="timestamp">Ahora</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="userInput" 
+                        placeholder="Escribe tu mensaje aquí... (Ctrl+Enter para enviar)"
+                        rows="2"
+                        autofocus
+                    ></textarea>
+                    <div class="input-hints">
+                        <span class="hint"><i class="fas fa-lightbulb"></i> Pregunta sobre cualquier tema</span>
+                        <span class="hint"><i class="fas fa-history"></i> Mantengo el contexto de la conversación</span>
+                    </div>
+                </div>
+                <button id="sendButton" class="primary-btn">
+                    <i class="fas fa-paper-plane"></i> Enviar
+                </button>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <button id="clearButton" class="secondary-btn">
+                        <i class="fas fa-trash"></i> Limpiar pantalla
+                    </button>
+                    <button id="clearHistoryButton" class="secondary-btn">
+                        <i class="fas fa-history"></i> Limpiar historial
+                    </button>
+                    <button id="searchButton" class="secondary-btn">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                </div>
+                
+                <div class="control-group">
+                    <div id="historyCounter" class="history-counter">
+                        <i class="fas fa-database"></i> Contexto: 0 mensajes
+                    </div>
+                    <button id="infoButton" class="secondary-btn">
+                        <i class="fas fa-info-circle"></i> Información
+                    </button>
+                </div>
+            </div>
+
+            <!-- Buscador de conversación (oculto inicialmente) -->
+            <div id="searchPanel" class="search-panel" style="display: none;">
+                <div class="search-input">
+                    <input type="text" id="searchInput" placeholder="Buscar en la conversación...">
+                    <button id="searchClose" class="icon-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="searchResults" class="search-results">
+                    <!-- Resultados de búsqueda aparecerán aquí -->
+                </div>
+            </div>
+        </main>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p><i class="fas fa-lightbulb"></i> Este proyecto demuestra integración de APIs de IA usando FastAPI</p>
+                    <p class="project-links">
+                        <a href="#" id="viewSource" class="footer-link">
+                            <i class="fab fa-github"></i> Ver código fuente
+                        </a>
+                        <a href="#" id="viewDocs" class="footer-link">
+                            <i class="fas fa-book"></i> Documentación
+                        </a>
+                    </p>
+                </div>
+                <div class="tech-stack">
+                    <h4>Tecnologías utilizadas:</h4>
+                    <div class="tech-tags">
+                        <span class="tech python"><i class="fab fa-python"></i> Python 3.10</span>
+                        <span class="tech fastapi"><i class="fas fa-bolt"></i> FastAPI</span>
+                        <span class="tech groq"><i class="fas fa-brain"></i> Groq Cloud</span>
+                        <span class="tech js"><i class="fab fa-js"></i> JavaScript</span>
+                        <span class="tech html"><i class="fab fa-html5"></i> HTML5</span>
+                        <span class="tech css"><i class="fab fa-css3"></i> CSS3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 - Proyecto de Portafolio para Desarrollador Junior | 
+                    <span id="versionInfo">Versión 2.0.0</span> | 
+                    <span id="currentTime"></span>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal de información -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2><i class="fas fa-info-circle"></i> Información del Proyecto</h2>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3><i class="fas fa-rocket"></i> Características Principales</h3>
+                    <ul class="feature-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Historial de Conversación:</strong> El chatbot recuerda el contexto de la conversación
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Múltiples Modelos:</strong> Compatible con diferentes modelos de Groq Cloud
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Interfaz Responsiva:</strong> Se adapta a dispositivos móviles y de escritorio
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Manejo de Errores:</strong> Sistema robusto de manejo de errores y reconexión
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Temas Personalizables:</strong> Soporte para modo claro y oscuro
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3><i class="fas fa-cogs"></i> Cómo usar</h3>
+                    <div class="usage-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Escribe tu pregunta</h4>
+                                <p>Usa el área de texto en la parte inferior para escribir tu mensaje</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Envía el mensaje</h4>
+                                <p>Haz clic en "Enviar" o presiona Ctrl+Enter para enviar tu pregunta</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Recibe la respuesta</h4>
+                                <p>El chatbot procesará tu pregunta y te dará una respuesta detallada</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Mantén el contexto</h4>
+                                <p>El chatbot recordará la conversación anterior para respuestas más precisas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3><i class="fas fa-microchip"></i> Configuración Técnica</h3>
+                    <div class="tech-details">
+                        <div class="tech-card">
+                            <div class="tech-icon">
+                                <i class="fab fa-python"></i>
+                            </div>
+                            <h4>Backend</h4>
+                            <ul>
+                                <li>FastAPI 0.104.1</li>
+                                <li>Python 3.10+</li>
+                                <li>Groq SDK</li>
+                                <li>Uvicorn Server</li>
+                            </ul>
+                        </div>
+                        <div class="tech-card">
+                            <div class="tech-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4>Frontend</h4>
+                            <ul>
+                                <li>HTML5 Semántico</li>
+                                <li>CSS3 con Variables</li>
+                                <li>JavaScript Vanilla</li>
+                                <li>Font Awesome Icons</li>
+                            </ul>
+                        </div>
+                        <div class="tech-card">
+                            <div class="tech-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h4>Inteligencia Artificial</h4>
+                            <ul>
+                                <li id="currentModelInfo">Cargando modelo...</li>
+                                <li>Historial de contexto</li>
+                                <li>Prompt engineering</li>
+                                <li>Token limit: 300</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3><i class="fas fa-keyboard"></i> Atajos de Teclado</h3>
+                    <div class="shortcuts">
+                        <div class="shortcut">
+                            <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+                            <span>Enviar mensaje</span>
+                        </div>
+                        <div class="shortcut">
+                            <kbd>Esc</kbd>
+                            <span>Cerrar modal/buscador</span>
+                        </div>
+                        <div class="shortcut">
+                            <kbd>Ctrl</kbd> + <kbd>K</kbd>
+                            <span>Abrir buscador</span>
+                        </div>
+                        <div class="shortcut">
+                            <kbd>Ctrl</kbd> + <kbd>L</kbd>
+                            <span>Limpiar pantalla</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <div class="note">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Nota importante:</strong> Este es un proyecto demostrativo para portafolio.
+                            Requiere una API Key válida de Groq Cloud para funcionar. 
+                            Las conversaciones se mantienen en memoria durante la sesión.
+                        </div>
+                    </div>
+                    
+                    <div class="api-info">
+                        <h4><i class="fas fa-key"></i> Información de API</h4>
+                        <p>Endpoints disponibles:</p>
+                        <ul class="api-endpoints">
+                            <li><code>POST /chat</code> - Enviar mensaje al chatbot</li>
+                            <li><code>POST /clear-history</code> - Limpiar historial</li>
+                            <li><code>GET /health</code> - Estado del servicio</li>
+                            <li><code>GET /models</code> - Modelos disponibles</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de exportación -->
+    <div id="exportModal" class="modal">
+        <div class="modal-content">
+            <span class="close export-close">&times;</span>
+            <h2><i class="fas fa-download"></i> Exportar Conversación</h2>
+            <div class="modal-body">
+                <p>Selecciona el formato para exportar la conversación:</p>
+                
+                <div class="export-options">
+                    <div class="export-option">
+                        <input type="radio" id="exportTxt" name="exportFormat" value="txt" checked>
+                        <label for="exportTxt">
+                            <i class="fas fa-file-alt"></i>
+                            <div>
+                                <h4>Texto Plano (.txt)</h4>
+                                <p>Formato simple, compatible con cualquier editor</p>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <div class="export-option">
+                        <input type="radio" id="exportJson" name="exportFormat" value="json">
+                        <label for="exportJson">
+                            <i class="fas fa-code"></i>
+                            <div>
+                                <h4>JSON (.json)</h4>
+                                <p>Estructurado, ideal para procesamiento programático</p>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <div class="export-option">
+                        <input type="radio" id="exportHtml" name="exportFormat" value="html">
+                        <label for="exportHtml">
+                            <i class="fab fa-html5"></i>
+                            <div>
+                                <h4>HTML (.html)</h4>
+                                <p>Con estilos, listo para visualizar en navegador</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="export-preview">
+                    <h4><i class="fas fa-eye"></i> Vista Previa</h4>
+                    <textarea id="exportPreview" readonly rows="6" placeholder="La vista previa aparecerá aquí..."></textarea>
+                </div>
+                
+                <div class="export-actions">
+                    <button id="exportCancel" class="secondary-btn">Cancelar</button>
+                    <button id="exportConfirm" class="primary-btn">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificaciones flotantes -->
+    <div id="notificationContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
+</body>
+</html>

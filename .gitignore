@@ -1,0 +1,14 @@
+# Entorno virtual
+venv/
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Node / frontend (por si luego usas npm)
+node_modules/
