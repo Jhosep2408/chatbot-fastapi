@@ -2,7 +2,7 @@
 class ChatbotUI {
     constructor() {
         // Configuración
-        this.backendUrl = 'http://localhost:8000';
+        this.backendUrl = 'https://chatbot-fastapi-4vem.onrender.com';
         this.userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         
         // Elementos del DOM
