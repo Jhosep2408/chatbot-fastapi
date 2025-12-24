@@ -1,0 +1,22 @@
+{
+  "name": "ChatBot del Ingeniero Jhosep Colchado",
+  "short_name": "ChatBot Jhosep",
+  "description": "Chatbot profesional del ingeniero Jhosep Colchado",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
