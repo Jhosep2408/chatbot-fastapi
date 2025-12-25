@@ -1,3 +1,31 @@
+
+window.addEventListener("load", async () => {
+    try {
+        await fetch("https://chatbot-fastapi-psi.vercel.app/health");
+        console.log("Backend listo");
+    } catch {
+        console.log("Despertando backend...");
+    }
+});
+const loadingOverlay = document.getElementById("backend-loading");
+
+async function waitForBackend() {
+    let connected = false;
+
+    while (!connected) {
+        try {
+            const res = await fetch("https://chatbot-fastapi-psi.vercel.app/health");
+            if (res.ok) connected = true;
+        } catch {
+            await new Promise(r => setTimeout(r, 3000)); // espera 3s
+        }
+    }
+
+    loadingOverlay.style.display = "none";
+}
+
+window.addEventListener("load", waitForBackend);
+
 // frontend/script.js
 class ChatbotUI {
     constructor() {
