@@ -2,7 +2,7 @@
 class ChatbotUI {
     constructor() {
         // Configuración
-        this.backendUrl = 'https://chatbot-fastapi-4vem.onrender.com';
+        this.backendUrl = 'http://localhost:8000';
         this.userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         
         // Elementos del DOM
@@ -40,6 +40,11 @@ class ChatbotUI {
             exportClose: document.querySelector('.export-close'),
             notificationContainer: document.getElementById('notificationContainer')
         };
+
+        // New UI elements
+        this.elements.hamburgerBtn = document.getElementById('hamburgerBtn');
+        this.elements.sidebar = document.querySelector('.sidebar');
+        this.elements.sidebarBackdrop = document.getElementById('sidebarBackdrop');
 
         // Sidebar elements (conversaciones)
         this.elements.conversationList = document.getElementById('conversationList');
@@ -113,6 +118,8 @@ class ChatbotUI {
         this.renderConversationList();
         this.renderConversationMessages(conv);
         this.showNotification('🔁 Conversación cargada', 'info');
+        // On small screens, close the sidebar after switching
+        this.toggleSidebar(false);
     }
 
     saveMessageToConversation(text, sender) {
@@ -271,6 +278,15 @@ class ChatbotUI {
         this.elements.exportConfirm?.addEventListener('click', () => this.exportConversation());
         // Nuevo botón de conversación
         this.elements.newConversationBtn?.addEventListener('click', () => this.createNewConversation());
+
+        // Hamburger / sidebar toggle for mobile
+        this.elements.hamburgerBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleSidebar(true);
+        });
+
+        // Backdrop click closes sidebar
+        this.elements.sidebarBackdrop?.addEventListener('click', () => this.toggleSidebar(false));
         
         // Eventos de enlaces
         this.elements.viewSource?.addEventListener('click', (e) => {
@@ -419,6 +435,7 @@ class ChatbotUI {
                 this.hideInfoModal();
                 this.hideExportModal();
                 this.toggleSearch(false);
+                this.toggleSidebar(false);
             }
             
             // Ctrl+Shift+T para cambiar tema
@@ -825,6 +842,26 @@ class ChatbotUI {
     highlightText(text, query) {
         const regex = new RegExp(`(${this.escapeRegex(query)})`, 'gi');
         return this.escapeHtml(text).replace(regex, '<mark>$1</mark>');
+    }
+
+    toggleSidebar(show = null) {
+        // if show is null -> toggle
+        const willOpen = show === null ? !this.elements.sidebar?.classList.contains('open') : !!show;
+
+        if (!this.elements.sidebar) return;
+
+        if (willOpen) {
+            this.elements.sidebar.classList.add('open');
+            this.elements.sidebarBackdrop?.classList.remove('hidden');
+            this.elements.sidebarBackdrop?.classList.add('visible');
+            // prevent body scroll when sidebar open on mobile
+            document.body.style.overflow = 'hidden';
+        } else {
+            this.elements.sidebar.classList.remove('open');
+            this.elements.sidebarBackdrop?.classList.remove('visible');
+            this.elements.sidebarBackdrop?.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
     }
     
     escapeRegex(string) {
