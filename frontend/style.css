@@ -2051,4 +2051,69 @@ body.dark-mode .note {
     box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
 }
 
+/* ===== MOBILE 360px: estilo tipo WhatsApp ===== */
+@media (max-width: 360px) {
+    .chat-box {
+        padding: 10px;
+        max-height: calc(100vh - 180px);
+    }
+
+    .message {
+        margin-bottom: 8px;
+        align-items: flex-end;
+        gap: 8px;
+    }
+
+    /* Forzar posiciones: bot a la izquierda, usuario a la derecha */
+    .bot-message { justify-content: flex-start; }
+    .user-message { justify-content: flex-end; }
+
+    .message .avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 0.95rem;
+    }
+
+    .message .content {
+        max-width: 78%;
+        padding: 8px 10px;
+        border-radius: 14px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    /* Bot bubble: pegada a la izquierda */
+    .bot-message .content {
+        background: #f1f0f0;
+        color: var(--gray-900);
+        border: none;
+        margin-right: auto;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 14px;
+        border-bottom-right-radius: 14px;
+        border-bottom-left-radius: 14px;
+    }
+
+    /* Usuario: pegada a la derecha (estilo WhatsApp) */
+    .user-message .content {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        color: white;
+        margin-left: auto;
+        border-top-left-radius: 14px;
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 14px;
+        border-bottom-left-radius: 14px;
+    }
+
+    /* Timestamps: bot a la izquierda, user a la derecha */
+    .bot-message .timestamp { text-align: left; display: block; font-size: 0.7rem; opacity: 0.65; }
+    .user-message .timestamp { text-align: right; display: block; font-size: 0.7rem; opacity: 0.85; }
+
+    /* Ajustes del textarea para que el contenido no se vea pegado */
+    .input-wrapper textarea { padding: 10px 46px 10px 12px; }
+
+    /* Alinear avatar más pegado al borde del bubble */
+    .bot-message .avatar { margin-right: 6px; }
+    .user-message .avatar { margin-left: 6px; }
+}
+
 
