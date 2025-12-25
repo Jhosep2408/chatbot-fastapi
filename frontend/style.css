@@ -202,8 +202,41 @@ body {
 /* Responsive: collapse sidebar on small screens */
 @media (max-width: 900px) {
     .main-area { padding: 0 var(--space-md) var(--space-md) var(--space-md); gap: var(--space-md); }
-    .sidebar { display: none; }
+    /* Make sidebar slide-in off-canvas on smaller screens */
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 80%;
+        max-width: 320px;
+        transform: translateX(-110%);
+        transition: transform 0.28s ease;
+        display: flex;
+        z-index: 2000;
+        padding-top: calc(var(--space-2xl) + 12px);
+        background: linear-gradient(180deg, #0b1220 0%, #0f1724 100%);
+    }
+    .sidebar.open { transform: translateX(0); }
+    /* show hamburger in chat header */
+    #hamburgerBtn { display: inline-flex !important; }
+    /* backdrop */
+    .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 1500;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        display: none;
+    }
+    .sidebar-backdrop.visible { display: block; opacity: 1; }
 }
+
+    /* Asegurar que SweetAlert2 se muestre por encima del sidebar y backdrop */
+    .swal2-container, .swal2-backdrop, .swal2-popup {
+        z-index: 110000 !important;
+    }
 
 .container::before {
     content: '';
@@ -1788,6 +1821,23 @@ kbd {
         padding: var(--space-sm);
         font-size: 0.85rem;
     }
+
+    /* Compact chat like WhatsApp: smaller message text and tighter spacing */
+    .content p { font-size: 0.88rem; margin-bottom: 6px; line-height: 1.4; }
+    .message { margin-bottom: 10px; }
+
+    /* Make send button circular and compact */
+    .primary-btn { height: 48px; min-width: 48px; width: 48px; padding: 0; border-radius: 50%; }
+    .primary-btn i { margin: 0; }
+
+    /* Adjust input area to allow icon-only send button */
+    .input-area { gap: 8px; align-items: flex-end; }
+    .input-wrapper textarea { padding-right: 56px; }
+    /* position send button to the right bottom on very small screens */
+    .primary-btn { position: relative; }
+    /* hide text label and show only icon (like WhatsApp) */
+    .primary-btn { font-size: 0; }
+    .primary-btn i { font-size: 1.05rem; }
     
     .footer {
         padding: var(--space-lg) var(--space-md);
@@ -1933,8 +1983,6 @@ body.dark-mode .note {
     color: #ffd700;
 }
 
-
-
 /* ===== PRINT STYLES ===== */
 @media print {
     .header, .footer, .input-area, .controls, .modal {
@@ -1964,3 +2012,43 @@ body.dark-mode .note {
         padding: 0 !important;
     }
 }
+
+
+.footer-bottom a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+.whatsapp-link {
+    color: #25D366;
+    font-weight: 600;
+}
+
+.whatsapp-link i {
+    margin-right: 4px;
+}
+
+.portfolio-btn {
+    background: linear-gradient(135deg, #2563eb, #38bdf8);
+    color: #fff !important;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.portfolio-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+
